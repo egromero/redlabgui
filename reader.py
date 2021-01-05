@@ -38,7 +38,7 @@ class Reader(threading.Thread):
                 
                 time.sleep(0.001)
 
-                req = requests.post(CONSTANTS.records, {'rfid' : rfid,'lab_id' : lab_id}, headers=credentials.totem_credential).json()
+                req = requests.post(CONSTANTS["RECORDS"], {'rfid' : rfid,'lab_id' : CONSTANTS["ID"]}, headers=credentials.totem_credential).json()
                 print(req)
                 # if not req:
                                  
