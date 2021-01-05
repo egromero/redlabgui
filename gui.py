@@ -9,19 +9,17 @@ millis = lambda: int(round(time.time() * 1000))
 q = Queue() 
 def consumer(in_q): 
     while True:
-        data = in_q.get() 
-        open_window()
-        t2.start()
+        data = in_q.get()
+        print("recieved") 
+   #     open_window()
+   #     t = millis()
+   #     while True:
+   #         print("contando")
+   #         if millis()-t>3000:
+   #             close_window()
+   #             break
 
-def counter():
-    t = millis()
-    while True:
-        if millis()-t > 3000:
-            close_window()
-            break
-
-t1 = Thread(target = consumer, args =(q, )) 
-t2 = Thread(target = counter)
+t1 = Thread(target = consumer, args =(q, ))
 t1.start()
 
 def open_window():
