@@ -6,13 +6,11 @@ import time
 import credentials
 from const import CONSTANTS
 import threading
+from gui import q
 
 
 class Reader(threading.Thread):
     
-    # sig1 = pyqtSignal(dict)
-    # sig2 = pyqtSignal(str)
-
     def __init__(self):
         threading.Thread.__init__(self)
         
@@ -37,11 +35,12 @@ class Reader(threading.Thread):
                 p.play(1)
                 
                 time.sleep(0.001)
-
-                req = requests.post(CONSTANTS["RECORDS"], {'rfid' : rfid,'lab_id' : CONSTANTS["ID"]}, headers=credentials.totem_credential).json()
-                print(req)
+                print(rfid)
+                q.put("show")
+                # req = requests.post(CONSTANTS["RECORDS"], {'rfid' : rfid,'lab_id' : CONSTANTS["ID"]}, headers=credentials.totem_credential).json()
+                # print(req)
                 # if not req:
-                                 
+
                 # else:
                 #     self.sig1.emit(req)
                 #     time.sleep(5) 
