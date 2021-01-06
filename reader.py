@@ -39,13 +39,16 @@ class Reader(threading.Thread):
                 time.sleep(0.001)
 
                 req = requests.post(CONSTANTS.records, {'rfid' : rfid,'lab_id' : lab_id}, headers=credentials.totem_credential).json()
-                
-                if not req:
-                    req = rfid
-                    self.sig2.emit(req)                
-                else:
-                    self.sig1.emit(req)
-                    time.sleep(5) 
+                print(req)
+                # if not req:
+                                 
+                # else:
+                #     self.sig1.emit(req)
+                #     time.sleep(5) 
                          
-                GPIO.cleanup()
+                # GPIO.cleanup()
     
+if __name__ == "__main__":
+    reader = Reader()
+    reader.run()
+
