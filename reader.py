@@ -15,8 +15,8 @@ class Reader(QThread):
     
     def run(self):
         rfid = "a"
-        request = requests.post(CONSTANTS["RECORDS"], {'rfid' : rfid,'lab_id' : CONSTANTS["ID"]}, headers=credentials.totem_credential).json()
-        #request = {'type': 'nonexistent', 'data': {'rfid': 'sa'}}
+        #request = requests.post(CONSTANTS["RECORDS"], {'rfid' : rfid,'lab_id' : CONSTANTS["ID"]}, headers=credentials.totem_credential).json()
+        request = {'type': 'student', 'data': {'student': {'id': 1, 'rfid': 'a', 'nombre': 'Erick Romero', 'nalumno': '14206374', 'sit_academica': 'Vigente', 'correo': 'egromero@uc.cl', 'created_at': '2021-01-21T14:08:31.763-03:00', 'updated_at': '2021-01-21T16:16:32.044-03:00', 'rut': '190653854', 'status': True}
         self.signal.emit(request)
         # continue_reading = True
         
