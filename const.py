@@ -7,7 +7,7 @@ CONSTANTS = {
         "ENROLL": "images/permitido.png",
         "WAIT": "images/espera.png",
         "NONEXISTENT": "images/noEncontrado.png"
-    }
+    },
     "XLABEL": 30, 
     "YLABEL": 730,
     "SIZELABELX": 970, 
