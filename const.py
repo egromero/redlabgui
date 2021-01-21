@@ -8,4 +8,8 @@ CONSTANTS = {
         "WAIT": "images/espera.png",
         "NONEXISTENT": "images/noEncontrado.png"
     }
+    "XLABEL": 30, 
+    "YLABEL": 730,
+    "SIZELABELX": 970, 
+    "SIZELABELY":80
     }
