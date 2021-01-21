@@ -36,7 +36,9 @@ class MWindow(QMainWindow):
             image = CONSTANTS['DATASET']['NONEXISTENT']
             self.setScreen(image)
         else:
+            image = CONSTANTS['DATASET']['ENROLL']
             self.name.setText(data['data']['student']['nombre'].split(' ')[0].upper())
+            self.setScreen(image)
 
 
     def check_ucdb(self, rfid):

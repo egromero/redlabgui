@@ -4,7 +4,7 @@ CONSTANTS = {
     "ID" : 1,
     "RECORDS" : URL + "/records",
     "DATASET": {
-        "ENROLL": "images/matriculado.png",
+        "ENROLL": "images/permitido.png",
         "WAIT": "images/espera.png",
         "NONEXISTENT": "images/noEncontrado.png"
     }
