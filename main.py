@@ -1,7 +1,10 @@
-import gui
+import sys
 import reader
-import gui
+import guipyqt
 
-card_reader = reader.Reader()
-card_reader.run()
-gui.app.display()
+
+
+app = guipyqt.QApplication(sys.argv)
+mwin = guipyqt.MWindow()
+mwin.show()
+sys.exit(app.exec_())
