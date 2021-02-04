@@ -6,18 +6,18 @@ import time
 import credentials
 from const import CONSTANTS
 from PyQt5.QtCore import QThread, pyqtSignal
+import checkInternet
 
 class Reader(QThread):
     signal = pyqtSignal(dict)
+    nointernet = pyqtSignal(str)
 
     def __init__(self, parent=None):
         QThread.__init__(self, parent)
     
     def run(self):
-        rfid = "a"
-        #request = requests.post(CONSTANTS["RECORDS"], {'rfid' : rfid,'lab_id' : CONSTANTS["ID"]}, headers=credentials.totem_credential).json()
-        request = {'type': 'student', 'data': {'student': {'id': 1, 'rfid': 'a', 'nombre': 'Erick Romero', 'nalumno': '14206374', 'sit_academica': 'Vigente', 'correo': 'egromero@uc.cl', 'created_at': '2021-01-21T14:08:31.763-03:00', 'updated_at': '2021-01-21T16:16:32.044-03:00', 'rut': '190653854', 'status': True}, 'laboratory': []}}
-        self.signal.emit(request)
+        if not checkInternet.check():
+            self.nointernet.emit("AV342dC")
         # continue_reading = True
         
         # MIFAREReader = MFRC522.MFRC522()
@@ -38,10 +38,16 @@ class Reader(QThread):
         #         p.play(1)
 
         #         time.sleep(0.001)
-        #         req = requests.post(CONSTANTS["RECORDS"], {'rfid' : rfid,'lab_id' : CONSTANTS["ID"]}, headers=credentials.totem_credential).json()
+        #         if(checkInternet.check()):
+        #             req = requests.post(CONSTANTS["RECORDS"], {'rfid' : rfid,'lab_id' : CONSTANTS["ID"]}, headers=credentials.totem_credential).json()
 
-        #         self.signal.emit(req)
-        #         time.sleep(5) 
+        #             self.signal.emit(req)
+        #             time.sleep(5) 
                          
-        #         GPIO.cleanup()
+        #             GPIO.cleanup()
+                   
+        #         else:
+                    #   print('triggering local db')
+                    #   nointernet.emit('start')
+
 
