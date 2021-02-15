@@ -16,38 +16,37 @@ class Reader(QThread):
         QThread.__init__(self, parent)
     
     def run(self):
-        if not checkInternet.check():
-            self.nointernet.emit("AV342dC")
-        # continue_reading = True
+            
+        continue_reading = True
         
-        # MIFAREReader = MFRC522.MFRC522()
+        MIFAREReader = MFRC522.MFRC522()
         
-        # while continue_reading:
+        while continue_reading:
     
-        #     (status,TagType) = MIFAREReader.MFRC522_Request(MIFAREReader.PICC_REQIDL)
+            (status,TagType) = MIFAREReader.MFRC522_Request(MIFAREReader.PICC_REQIDL)
                 
-        #     (status,uid) = MIFAREReader.MFRC522_Anticoll()
+            (status,uid) = MIFAREReader.MFRC522_Anticoll()
 
-        #     if status == MIFAREReader.MI_OK:
+            if status == MIFAREReader.MI_OK:
                 
-        #         rfid = ''.join([str(hex(i))[2:] if i>16 else '0'+ str(hex(i))[2:] for i in uid ])[:-2]
-        #         rfid = rfid.upper()
+                rfid = ''.join([str(hex(i))[2:] if i>16 else '0'+ str(hex(i))[2:] for i in uid ])[:-2]
+                rfid = rfid.upper()
 
-        #         p = SoundPlayer("/home/pi/guiPythonLABFAB/sounds/BeepIn.mp3", 0)
+                p = SoundPlayer("/home/pi/guiPythonLABFAB/sounds/BeepIn.mp3", 0)
 
-        #         p.play(1)
+                p.play(1)
 
-        #         time.sleep(0.001)
-        #         if(checkInternet.check()):
-        #             req = requests.post(CONSTANTS["RECORDS"], {'rfid' : rfid,'lab_id' : CONSTANTS["ID"]}, headers=credentials.totem_credential).json()
+                time.sleep(0.001)
+                if checkInternet.check():
+                    req = requests.post(CONSTANTS["RECORDS"], {'rfid' : rfid,'lab_id' : CONSTANTS["ID"]}, headers=credentials.totem_credential).json()
 
-        #             self.signal.emit(req)
-        #             time.sleep(5) 
+                    self.signal.emit(req)
+                    time.sleep(5) 
                          
-        #             GPIO.cleanup()
+                    GPIO.cleanup()
                    
-        #         else:
-                    #   print('triggering local db')
-                    #   nointernet.emit('start')
+                else:
+                      print('triggering local db')
+                      nointernet.emit(rfid)
 
 
