@@ -16,7 +16,6 @@ class Reader(QThread):
         QThread.__init__(self, parent)
     
     def run(self):
-            
         continue_reading = True
         print("Lector")
         MIFAREReader = MFRC522.MFRC522()
@@ -37,8 +36,8 @@ class Reader(QThread):
                 p.play(1)
 
                 time.sleep(0.001)
-		if checkInternet.check():
-		    print("internet")
+                if checkInternet.check():
+                    print("internet")
                     req = requests.post(CONSTANTS["RECORDS"], {'rfid' : rfid,'lab_id' : CONSTANTS["ID"]}, headers=credentials.totem_credential).json()
 
                     self.signal.emit(req)
