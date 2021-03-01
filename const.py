@@ -1,5 +1,5 @@
-# URL = "http://redlab.dca.uc.cl"
-URL = "http://localhost:3000"
+URL = "http://redlab.dca.uc.cl"
+#URL = "http://localhost:3000"
 CONSTANTS = {
     "ID" : 1,
     "RECORDS" : URL + "/records",
