@@ -1,10 +1,8 @@
 import sys
 import reader
-import guipyqt
+import gui
 
-
-
-app = guipyqt.QApplication(sys.argv)
-mwin = guipyqt.MWindow()
+app = gui.QApplication(sys.argv)
+mwin = gui.MWindow()
 mwin.show()
 sys.exit(app.exec_())
