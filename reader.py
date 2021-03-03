@@ -30,22 +30,20 @@ class Reader(QThread):
                 print("Leido")
                 rfid = ''.join([str(hex(i))[2:] if i>16 else '0'+ str(hex(i))[2:] for i in uid ])[:-2]
                 rfid = rfid.upper()
-
-                p = SoundPlayer("sounds/BeepIn.mp3", 0)
-
+                soundpath = "/home/pi/redlabgui/sounds/"
+                song = "JohnCenaShort.mp3" if rfid == "CFCAA9B9" else "BeepIn.mp3"
+                p = SoundPlayer(soundpath+song, 0)
                 p.play(1)
-
                 time.sleep(0.001)
                 if checkInternet.check():
-                    print("internet")
                     req = requests.post(CONSTANTS["RECORDS"], {'rfid' : rfid,'lab_id' : CONSTANTS["ID"]}, headers=credentials.totem_credential).json()
-
+                    print(req)
                     self.signal.emit(req)
-                    time.sleep(5)
+                    time.sleep(1)
                     GPIO.cleanup()
                 else:
-                      print('triggering local db')
-                      nointernet.emit(rfid)
+                    print('triggering local db')
+                    self.nointernet.emit(rfid)
 
 
 if __name__ == "__main__":

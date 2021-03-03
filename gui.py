@@ -5,7 +5,8 @@ from reader import Reader
 from const import CONSTANTS
 import apiHandler
 import localGui
-
+from web import Browser
+ 
 class MWindow(QMainWindow):
     def __init__(self, parent=None):
         super(MWindow, self).__init__(parent=parent)
@@ -22,12 +23,18 @@ class MWindow(QMainWindow):
         self.name.resize(CONSTANTS["SIZELABELX"], CONSTANTS["SIZELABELY"])
         self.name.setStyleSheet('QLabel {background: transparent; font-family: "Times new roman"; font-size: 50px}')
         self.name.setAlignment(QtCore.Qt.AlignCenter) 
-        #self.showFullScreen()
+        self.showFullScreen()
+        self.webBrowser = Browser()
+        self.webBrowser.showFullScreen()
+        self.webBrowser.load(CONSTANTS["URL_SLIDE"])
 
     def setScreen(self, image):
+        
         style = "QWidget {background : url(%s) no-repeat center center fixed}" % image
         self.setStyleSheet(style)
+        self.webBrowser.hide()
         QTest.qWait(2000)
+        self.webBrowser.showFullScreen()
 
     def no_internet(self, rfid):
         local = localGui.LocalW(rfid)
@@ -58,12 +65,13 @@ class MWindow(QMainWindow):
 
 
     def check_ucdb(self, rfid):
-        data = apiHandler.get_data(rfid)
-        if isinstance(data, str):
-            return None
-        student = requests.post(self.url_student, data, headers=credentials.totem_credential)
-        record = requests.post(CONSTANTS['RECORDS'], {'rfid': data['rfid'],'lab_id':CONSTANTS['ID']}, headers=credentials.totem_credential).json()
-        QTest.qWait(1000)
-        self.handle_response(record)
+        return None
+        #data = apiHandler.get_data(rfid)
+        #if isinstance(data, str):
+        #    return None
+        #student = requests.post(self.url_student, data, headers=credentials.totem_credential)
+        #record = requests.post(CONSTANTS['RECORDS'], {'rfid': data['rfid'],'lab_id':CONSTANTS['ID']}, headers=credentials.totem_credential).json()
+        #QTest.qWait(1000)
+        #self.handle_response(record)
 
 
