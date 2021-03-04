@@ -1,6 +1,5 @@
-#URL = "https://google.com"
 #URL = "http://redlab.dca.uc.cl"
-URL = "http://192.168.1.90:3000"
+URL = "http://192.168.221.23:3000"
 CONSTANTS = {
     "ID" : 1,
     "RECORDS" : URL + "/records",
@@ -15,5 +14,6 @@ CONSTANTS = {
     "YLABEL": 730,
     "SIZELABELX": 970, 
     "SIZELABELY":80,
-    "URL_SLIDE":URL +"/slideshow"
+    "URL_SLIDE":URL +"/slideshow",
+    "STUDENTS-TOTEM" : URL +"/students/created_from_totem"
     }

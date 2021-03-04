@@ -6,7 +6,9 @@ from const import CONSTANTS
 import apiHandler
 import localGui
 from web import Browser
- 
+import requests
+import credentials
+
 class MWindow(QMainWindow):
     def __init__(self, parent=None):
         super(MWindow, self).__init__(parent=parent)
@@ -49,8 +51,11 @@ class MWindow(QMainWindow):
             self.setScreen(image)
             data = self.check_ucdb(data['data']['rfid'])
         if not data:
+            print("no exist", data)
             image = CONSTANTS['DATASET']['NONEXISTENT']
             self.setScreen(image)
+        elif data == 200:
+            print("done")
         else:
             if data['data']['student']['status']:
                 image = CONSTANTS['DATASET']['NOTAUTH']
@@ -65,13 +70,14 @@ class MWindow(QMainWindow):
 
 
     def check_ucdb(self, rfid):
-        return None
-        #data = apiHandler.get_data(rfid)
-        #if isinstance(data, str):
-        #    return None
-        #student = requests.post(self.url_student, data, headers=credentials.totem_credential)
-        #record = requests.post(CONSTANTS['RECORDS'], {'rfid': data['rfid'],'lab_id':CONSTANTS['ID']}, headers=credentials.totem_credential).json()
-        #QTest.qWait(1000)
-        #self.handle_response(record)
+        ##return None
+        data = apiHandler.get_data(rfid)
+        if isinstance(data, str):
+            return None
+        student = requests.post(CONSTANTS['STUDENTS-TOTEM'], data, headers=credentials.totem_credential)
+        record = requests.post(CONSTANTS['RECORDS'], {'rfid': data['rfid'],'lab_id':CONSTANTS['ID']}, headers=credentials.totem_credential).json()
+        QTest.qWait(1000)
+        self.handle_response(record)
+        return 200
 
 
