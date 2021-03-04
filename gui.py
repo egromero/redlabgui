@@ -33,7 +33,7 @@ class MWindow(QMainWindow):
         style = "QWidget {background : url(%s) no-repeat center center fixed}" % image
         self.setStyleSheet(style)
         self.webBrowser.hide()
-        QTest.qWait(2000)
+        QTest.qWait(4000)
         self.webBrowser.showFullScreen()
 
     def no_internet(self, rfid):
