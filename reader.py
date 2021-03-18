@@ -1,13 +1,14 @@
 import RPi.GPIO as GPIO
 import MFRC522
 import requests
-from soundplayer import SoundPlayer
+#from soundplayer import SoundPlayer
+import pygame
 import time
 import credentials
 from const import CONSTANTS
 from PyQt5.QtCore import QThread, pyqtSignal
 import checkInternet
-
+pygame.init()
 class Reader(QThread):
     signal = pyqtSignal(dict)
     nointernet = pyqtSignal(str)
@@ -30,22 +31,21 @@ class Reader(QThread):
                 print("Leido")
                 rfid = ''.join([str(hex(i))[2:] if i>16 else '0'+ str(hex(i))[2:] for i in uid ])[:-2]
                 rfid = rfid.upper()
-
-                p = SoundPlayer("sounds/BeepIn.mp3", 0)
-
-                p.play(1)
-
+                soundpath = "sounds/"
+                #song = "JohnCenaShort.wav" if rfid == "CFCAA9B9" else "alert.wav"
+                song = "alert.wav"
+                p = pygame.mixer.Sound(soundpath+song)
+                p.play()
                 time.sleep(0.001)
                 if checkInternet.check():
-                    print("internet")
                     req = requests.post(CONSTANTS["RECORDS"], {'rfid' : rfid,'lab_id' : CONSTANTS["ID"]}, headers=credentials.totem_credential).json()
-
+                    print(req)
                     self.signal.emit(req)
-                    time.sleep(5)
+                    time.sleep(1)
                     GPIO.cleanup()
                 else:
-                      print('triggering local db')
-                      nointernet.emit(rfid)
+                    print('triggering local db')
+                    self.nointernet.emit(rfid)
 
 
 if __name__ == "__main__":

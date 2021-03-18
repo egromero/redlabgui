@@ -1,16 +1,17 @@
+from PyQt5.QtCore import QUrl
+from PyQt5.QtWidgets import QApplication, QWidget
+from PyQt5.QtWebKitWidgets import QWebView , QWebPage
 import sys
-from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtCore import *
-from PyQt5.QtGui import *
-from PyQt5.QtWidgets import *
-from PyQt5.QtWebKit import *
-from PyQt5.QtWebKitWidgets import *
-from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow
+class Browser(QWebView):
+    def __init__(self):
+        self.view = QWebView.__init__(self)
 
-app = QApplication(sys.argv)
+    def load(self,url):
+        self.setUrl(QUrl(url))
 
-web = QWebView()
-web.load(QUrl("https://pythonspot.com"))
-web.show()
-
-sys.exit(app.exec_())
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    view = Browser()  
+    view.showMaximized()
+    view.load("https://google.com")
+    app.exec_()

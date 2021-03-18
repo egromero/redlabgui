@@ -5,6 +5,9 @@ from reader import Reader
 from const import CONSTANTS
 import apiHandler
 import localGui
+from web import Browser
+import requests
+import credentials
 
 class MWindow(QMainWindow):
     def __init__(self, parent=None):
@@ -22,12 +25,18 @@ class MWindow(QMainWindow):
         self.name.resize(CONSTANTS["SIZELABELX"], CONSTANTS["SIZELABELY"])
         self.name.setStyleSheet('QLabel {background: transparent; font-family: "Times new roman"; font-size: 50px}')
         self.name.setAlignment(QtCore.Qt.AlignCenter) 
-        #self.showFullScreen()
+        self.showFullScreen()
+        self.webBrowser = Browser()
+        self.webBrowser.showFullScreen()
+        self.webBrowser.load(CONSTANTS["URL_SLIDE"])
 
     def setScreen(self, image):
+        
         style = "QWidget {background : url(%s) no-repeat center center fixed}" % image
         self.setStyleSheet(style)
-        QTest.qWait(2000)
+        self.webBrowser.hide()
+        QTest.qWait(4000)
+        self.webBrowser.showFullScreen()
 
     def no_internet(self, rfid):
         local = localGui.LocalW(rfid)
@@ -42,8 +51,11 @@ class MWindow(QMainWindow):
             self.setScreen(image)
             data = self.check_ucdb(data['data']['rfid'])
         if not data:
+            print("no exist", data)
             image = CONSTANTS['DATASET']['NONEXISTENT']
             self.setScreen(image)
+        elif data == 200:
+            print("done")
         else:
             if data['data']['student']['status']:
                 image = CONSTANTS['DATASET']['NOTAUTH']
@@ -58,12 +70,14 @@ class MWindow(QMainWindow):
 
 
     def check_ucdb(self, rfid):
+        ##return None
         data = apiHandler.get_data(rfid)
         if isinstance(data, str):
             return None
-        student = requests.post(self.url_student, data, headers=credentials.totem_credential)
+        student = requests.post(CONSTANTS['STUDENTS-TOTEM'], data, headers=credentials.totem_credential)
         record = requests.post(CONSTANTS['RECORDS'], {'rfid': data['rfid'],'lab_id':CONSTANTS['ID']}, headers=credentials.totem_credential).json()
         QTest.qWait(1000)
         self.handle_response(record)
+        return 200
 
 
