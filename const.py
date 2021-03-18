@@ -1,14 +1,14 @@
-#URL = "http://redlab.dca.uc.cl"
-URL = "http://192.168.221.23:3000"
+URL = "http://redlab.dca.uc.cl"
+#URL = "http://192.168.221.23:3000"
 CONSTANTS = {
-    "ID" : 1,
+    "ID" : 2,
     "RECORDS" : URL + "/records",
     "DATASET": {
-        "ENROLL": "images/permitido.png",
-        "WAIT": "images/espera.png",
-        "NONEXISTENT": "images/noEncontrado.png",
-        "GETOUT": "images/salida.png",
-        "NOTAUTH": "images/induccion.png"
+        "ENROLL": "/home/pi/redlabgui/images/permitido.png",
+        "WAIT": "/home/pi/redlabgui/images/espera.png",
+        "NONEXISTENT": "/home/pi/redlabgui/images/noEncontrado.png",
+        "GETOUT": "/home/pi/redlabgui/images/salida.png",
+        "NOTAUTH": "/home/pi/redlabgui/images/induccion.png"
     },
     "XLABEL": 30, 
     "YLABEL": 730,
