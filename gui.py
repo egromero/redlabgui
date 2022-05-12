@@ -70,7 +70,6 @@ class MWindow(QMainWindow):
 
 
     def check_ucdb(self, rfid):
-        ##return None
         data = apiHandler.get_data(rfid)
         if isinstance(data, str):
             return None

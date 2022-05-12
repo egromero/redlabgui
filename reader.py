@@ -39,7 +39,6 @@ class Reader(QThread):
                 time.sleep(0.001)
                 if checkInternet.check():
                     req = requests.post(CONSTANTS["RECORDS"], {'rfid' : rfid,'lab_id' : CONSTANTS["ID"]}, headers=credentials.totem_credential).json()
-                    print(req)
                     self.signal.emit(req)
                     time.sleep(1)
                     GPIO.cleanup()

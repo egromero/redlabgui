@@ -31,6 +31,13 @@ def get_data(uid):
     url_personas_uc = 'https://api.uc.cl/personauc/v1/user/{0}'.format(run)
     persona_uc  = requests.get(url_personas_uc, headers = persona_uc_credential).json()
     data = persona_uc['datos_personales']['data']
+    curriculum = data['curriculum']
+    majors = []
+    if(len(curriculum) >0):
+        for element in curriculum:
+            majors.append(element['NOM_CUR'])
+    else:
+        majors = [""]
     source = data['tarjetauc']['data']
     if not data['tarjetauc']['data']['cod_mifare']:
         source = data_tarjeta
@@ -38,5 +45,6 @@ def get_data(uid):
             'nombre': source['nombre_titular'],
             'correo': data['login']+'@uc.cl',
             'rut': data_tarjeta['run'][:-1]+'-'+ data_tarjeta['run'][-1],
-            'sit_academica': data['rol'][0]['estado']}
+            'sit_academica': data['rol'][0]['estado'],
+            'major': majors[0] }
     
