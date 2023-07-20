@@ -8,7 +8,9 @@ CONSTANTS = {
         "WAIT": "/home/pi/redlabgui/images/espera.png",
         "NONEXISTENT": "/home/pi/redlabgui/images/noEncontrado.png",
         "GETOUT": "/home/pi/redlabgui/images/salida.png",
-        "NOTAUTH": "/home/pi/redlabgui/images/induccion.png"
+        "NOTAUTH": "/home/pi/redlabgui/images/induccion.png",
+        "ENROLL_RESERVATION": "/home/pi/redlabgui/images/permitido_validar.png",
+        "GETOUT_RESERVATION": "/home/pi/redlabgui/images/salida_validar.png",
     },
     "XLABEL": 30, 
     "YLABEL": 730,

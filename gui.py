@@ -61,9 +61,9 @@ class MWindow(QMainWindow):
                 image = CONSTANTS['DATASET']['NOTAUTH']
                 labs = list(filter(lambda x: (x['id'] == CONSTANTS["ID"]), data['data']['laboratory']))
                 if labs:
-                    image = CONSTANTS['DATASET']['ENROLL']
+                    image = CONSTANTS['DATASET']['ENROLL_RESERVATION'] if data["data"]["reservation"] else CONSTANTS['DATASET']['ENROLL']
             else:
-                image = CONSTANTS['DATASET']['GETOUT']
+                image = CONSTANTS['DATASET']['GETOUT_RESERVATION'] if data["data"]["reservation"] else CONSTANTS['DATASET']['GETOUT']
 
             self.name.setText(data['data']['student']['nombre'].split(' ')[0].upper())
             self.setScreen(image)
