@@ -39,7 +39,7 @@ class Reader(QThread):
                 p.play()
                 time.sleep(0.001)
                 if checkInternet.check():
-                    #Revisar si usuario existe en la base de Airtable
+                    #Check if user exists on Airtable
                     #req = requests.post(CONSTANTS["RECORDS"], {'rfid' : rfid,'lab_id' : CONSTANTS["ID"]}, headers=credentials.totem_credential).json()
                     req = {
                         'rfid': rfid,
@@ -47,7 +47,7 @@ class Reader(QThread):
                         'totem_cred': credentials.totem_credential,
                         'action': 'New entry'
                     }
-                    #Envía la información al HandleResponse en gui.py
+                    #Send information to HandleResponse in gui.py
                     self.signal.emit(req)
                     time.sleep(1)
                     GPIO.cleanup()

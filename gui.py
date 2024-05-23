@@ -55,7 +55,7 @@ class MWindow(QMainWindow):
                 #Buscamos usuario en API UC; si existe crea el nuevo usuario y su ingreso.
                 data = self.check_ucdb(data['data']['rfid'])
                 if data == 200:
-                    #Revisar qué mostrar a usuario creado desde API UC.
+                    #Revisar que mostrar a usuario creado desde API UC.
                     image = CONSTANTS['DATASET']['NOTAUTH']
                     self.setScreen(image)
                     QTest.qWait(1000)
@@ -67,9 +67,9 @@ class MWindow(QMainWindow):
                     self.setScreen(image)
             #Usuario existe en base de datos.
             else:
-                #Revisar si tiene inducción.
+                #Revisar si tiene induccion.
                 if not(response['data']['Status (from Inducción-Persona)'][0]):
-                    #Acciones para inducción pendiente
+                    #Acciones para induccion pendiente
                     image = CONSTANTS['DATASET']['NOTAUTH']
                     self.setScreen(image)
                     QTest.qWait(1000)
@@ -90,11 +90,11 @@ class MWindow(QMainWindow):
         data = apiHandler.get_data(rfid)
         if isinstance(data, str):
             return None
-        #Creación de usuario inexistente en base de datos
-        # Código antiguo --> student = requests.post(CONSTANTS['STUDENTS-TOTEM'], data, headers=credentials.totem_credential)
+        #Creacion de usuario inexistente en base de datos
+        # Last code --> student = requests.post(CONSTANTS['STUDENTS-TOTEM'], data, headers=credentials.totem_credential)
         student = create_new_student(data, credentials.totem_credential)
-        #Creación de registro de ingreso de usuario  --> Revisar si este paso es necesario.
-        # Código antiguo --> record = requests.post(CONSTANTS['RECORDS'], {'rfid': data['rfid'],'lab_id':CONSTANTS['ID']}, headers=credentials.totem_credential).json()
+        #Creacion de registro de ingreso de usuario  --> Revisar si este paso es necesario.
+        # Last code --> record = requests.post(CONSTANTS['RECORDS'], {'rfid': data['rfid'],'lab_id':CONSTANTS['ID']}, headers=credentials.totem_credential).json()
         record = create_new_entry(student)
         QTest.qWait(1000)
         #self.handle_response(record)
