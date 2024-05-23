@@ -10,11 +10,6 @@ API_KEY = credentials.api_key_airtable['x-api-key']
 AIRTABLE_USERS_URL = CONSTANTS['USERS']
 AIRTABLE_ENTRYS_URL = CONSTANTS['RECORDS']
 
-# Headers para la autenticación
-headers = {
-    'Authorization': f'Bearer {API_KEY}'
-}
-
 def check_record(request):
     # Simulando la lógica de recibir la solicitud POST desde el cliente
     rfid = request['rfid']
@@ -56,6 +51,11 @@ def check_record(request):
 
 def create_new_student(student_data, totem_cred=None):
 
+    # Headers para la autenticación
+    headers = {
+        'Authorization': f'Bearer {API_KEY}'
+    }
+
     data = {
         'fields': {
             'fldDHLQB6UXdQRwx9': student_data['rfid'],
@@ -79,6 +79,11 @@ def create_new_student(student_data, totem_cred=None):
 
 def get_student_by_rfid(rfid="123456"):
 
+    # Headers para la autenticación
+    headers = {
+        'Authorization': f'Bearer {API_KEY}'
+    }
+
     params = {
         'filterByFormula': f'{{ID Persona}} = "{rfid}"'
     }
@@ -91,6 +96,11 @@ def get_student_by_rfid(rfid="123456"):
 
 def create_new_entry(student):
     
+    # Headers para la autenticación
+    headers = {
+        'Authorization': f'Bearer {API_KEY}'
+    }
+
     data = {
         'fields': {
             'fldSaKJY5vxtHib40': [student['id']],
@@ -115,6 +125,12 @@ def create_new_entry(student):
 def record_departure_time(record_id):
     # Datos a actualizar en el registro de Airtable
     AIRTABLE_RECORD_URL = AIRTABLE_ENTRYS_URL + "/"
+
+    # Headers para la autenticación
+    headers = {
+        'Authorization': f'Bearer {API_KEY}'
+    }
+
     data = {
         'fields': {
             'fldnsGof1RrMYyRod': 'Registrada'
@@ -127,6 +143,12 @@ def record_departure_time(record_id):
 def unchecked_last_entry(record_id):
     # Datos a actualizar en el registro de Airtable
     AIRTABLE_RECORD_URL = AIRTABLE_ENTRYS_URL + "/"
+
+    # Headers para la autenticación
+    headers = {
+        'Authorization': f'Bearer {API_KEY}'
+    }
+
     data = {
         'fields': {
             'fldbURdlvg5Riw5BH': False
@@ -148,7 +170,8 @@ student_data = {'rfid':  '181818',
             }
 
 #student = create_new_student(student_data)
-#print(student)
+print(student)
 #create_new_entry(student)
 #print(check_record(student_data))
 #record_departure_time('recXvKF6RYjJp1TrN')
+#print(API_KEY)
