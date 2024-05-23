@@ -136,7 +136,7 @@ def unchecked_last_entry(record_id):
     # Realizar la solicitud PATCH para actualizar el registro
     response = requests.patch(AIRTABLE_RECORD_URL + record_id, headers=headers, json=data)
 
-student = get_student_by_rfid('131313')
+#student = get_student_by_rfid('131313')
 #create_new_entry(student)
 student_data = {'rfid':  '181818',
             'nombre': 'Sebastián Velozo C',
@@ -148,7 +148,7 @@ student_data = {'rfid':  '181818',
             }
 
 #student = create_new_student(student_data)
-print(student)
+#print(student)
 #create_new_entry(student)
 #print(check_record(student_data))
 #record_departure_time('recXvKF6RYjJp1TrN')

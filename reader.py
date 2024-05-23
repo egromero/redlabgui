@@ -8,7 +8,6 @@ import credentials
 from const import CONSTANTS
 from PyQt5.QtCore import QThread, pyqtSignal
 import checkInternet
-from airtable_integration import check_entry
 pygame.init()
 class Reader(QThread):
     signal = pyqtSignal(dict)
