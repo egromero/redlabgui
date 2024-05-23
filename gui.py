@@ -9,10 +9,20 @@ from web import Browser
 import requests
 import credentials
 from airtable_integration import check_record, create_new_entry, create_new_student, record_departure_time
+import logging
+
+# Configurar el logging
+log_filepath = "./logs/main.log"
+
+logging.basicConfig(
+    filename=log_filepath,
+    level=logging.DEBUG,  # Ajusta el nivel según tus necesidades (DEBUG, INFO, WARNING, ERROR, CRITICAL)
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
 
 class MWindow(QMainWindow):
     def __init__(self, parent=None):
-        print("Funcionando...")
+        logging.info("Funcionando...")
         super(MWindow, self).__init__(parent=parent)
         self.setup_init()
     
@@ -45,8 +55,8 @@ class MWindow(QMainWindow):
         local.show()
 
     def handle_response(self, data):
-        pass
-"""         response = check_record(data)
+        
+        response = check_record(data)
         if response['action'] == 'Entry':            
             #Usuario no existe en base de datos.
             if response["type"] == "nonexistent":
@@ -82,7 +92,7 @@ class MWindow(QMainWindow):
             record_departure_time(response['data']['Record ID - Último ingreso'][0])
             image = CONSTANTS['DATASET']['GETOUT']
             self.name.setText(data['data']['Nombre completo'].split(' ')[0].upper())
-            self.setScreen(image) """
+            self.setScreen(image)
 
 
     def check_ucdb(self, rfid):
