@@ -8,9 +8,11 @@ import localGui
 from web import Browser
 import requests
 import credentials
+from airtable_integration import check_record, create_new_entry, create_new_student, record_departure_time
 
 class MWindow(QMainWindow):
     def __init__(self, parent=None):
+        print("Funcionando...")
         super(MWindow, self).__init__(parent=parent)
         self.setup_init()
     
@@ -30,8 +32,7 @@ class MWindow(QMainWindow):
         self.webBrowser.showFullScreen()
         self.webBrowser.load(CONSTANTS["URL_SLIDE"])
 
-    def setScreen(self, image):
-        
+    def setScreen(self, image):        
         style = "QWidget {background : url(%s) no-repeat center center fixed}" % image
         self.setStyleSheet(style)
         self.webBrowser.hide()
@@ -43,40 +44,60 @@ class MWindow(QMainWindow):
         local.showFullScreen()
         local.show()
 
-
-
     def handle_response(self, data):
-        if data["type"] == "nonexistent":
-            image = CONSTANTS['DATASET']['WAIT'] 
-            self.setScreen(image)
-            data = self.check_ucdb(data['data']['rfid'])
-        if not data:
-            print("no exist", data)
-            image = CONSTANTS['DATASET']['NONEXISTENT']
-            self.setScreen(image)
-        elif data == 200:
-            print("done")
-        else:
-            if data['data']['student']['status']:
-                image = CONSTANTS['DATASET']['NOTAUTH']
-                labs = list(filter(lambda x: (x['id'] == CONSTANTS["ID"]), data['data']['laboratory']))
-                if labs:
-                    image = CONSTANTS['DATASET']['ENROLL_RESERVATION'] if data["data"]["reservation"] else CONSTANTS['DATASET']['ENROLL']
+        
+        response = check_record(data)
+        if response['action'] == 'Entry':            
+            #Usuario no existe en base de datos.
+            if response["type"] == "nonexistent":
+                image = CONSTANTS['DATASET']['WAIT'] 
+                self.setScreen(image)
+                #Buscamos usuario en API UC; si existe crea el nuevo usuario y su ingreso.
+                data = self.check_ucdb(data['data']['rfid'])
+                if data == 200:
+                    #Revisar qué mostrar a usuario creado desde API UC.
+                    image = CONSTANTS['DATASET']['NOTAUTH']
+                    self.setScreen(image)
+                    QTest.qWait(1000)
+                    image = CONSTANTS['DATASET']['ENROLL']
+                    self.setScreen(image)
+                else:
+                    #Se muestra solicitud de registro manual por datos no encontrados en API UC.
+                    image = CONSTANTS['DATASET']['NONEXISTENT']
+                    self.setScreen(image)
+            #Usuario existe en base de datos.
             else:
-                image = CONSTANTS['DATASET']['GETOUT_RESERVATION'] if data["data"]["reservation"] else CONSTANTS['DATASET']['GETOUT']
+                #Revisar si tiene inducción.
+                if not(response['data']['Status (from Inducción-Persona)'][0]):
+                    #Acciones para inducción pendiente
+                    image = CONSTANTS['DATASET']['NOTAUTH']
+                    self.setScreen(image)
+                    QTest.qWait(1000)
+                image = CONSTANTS['DATASET']['ENROLL']
+                create_new_entry(response['data'])
+                #self.name.setText(data['data']['student']['nombre'].split(' ')[0].upper()) 
+                self.setScreen(image)                               
 
-            self.name.setText(data['data']['student']['nombre'].split(' ')[0].upper())
+        elif response['action'] == 'Exit':
+            record_departure_time(response['data']['Record ID - Último ingreso'][0])
+            image = CONSTANTS['DATASET']['GETOUT']
+            self.name.setText(data['data']['Nombre completo'].split(' ')[0].upper())
             self.setScreen(image)
 
 
     def check_ucdb(self, rfid):
+        #Crea al nuevo usuario y su ingreso respectivo.
         data = apiHandler.get_data(rfid)
         if isinstance(data, str):
             return None
-        student = requests.post(CONSTANTS['STUDENTS-TOTEM'], data, headers=credentials.totem_credential)
-        record = requests.post(CONSTANTS['RECORDS'], {'rfid': data['rfid'],'lab_id':CONSTANTS['ID']}, headers=credentials.totem_credential).json()
+        #Creación de usuario inexistente en base de datos
+        # Código antiguo --> student = requests.post(CONSTANTS['STUDENTS-TOTEM'], data, headers=credentials.totem_credential)
+        student = create_new_student(data, credentials.totem_credential)
+        #Creación de registro de ingreso de usuario  --> Revisar si este paso es necesario.
+        # Código antiguo --> record = requests.post(CONSTANTS['RECORDS'], {'rfid': data['rfid'],'lab_id':CONSTANTS['ID']}, headers=credentials.totem_credential).json()
+        record = create_new_entry(student)
         QTest.qWait(1000)
-        self.handle_response(record)
+        #self.handle_response(record)
         return 200
 
 

@@ -1,8 +1,9 @@
-URL = "http://redlab.dca.uc.cl"
-#URL = "http://192.168.221.23:3000"
+#URL = "http://redlab.dca.uc.cl"
+URL = "https://api.airtable.com/v0/appAva5Ns7QQbSSVn"
 CONSTANTS = {
     "ID" : 2,
-    "RECORDS" : URL + "/records",
+    "RECORDS" : URL + "/tblQKTOunnX5STdms",
+    "USERS": URL + '/tblc0rRxkEGkZ7doH',
     "DATASET": {
         "ENROLL": "/home/pi/redlabgui/images/permitido.png",
         "WAIT": "/home/pi/redlabgui/images/espera.png",
@@ -18,4 +19,4 @@ CONSTANTS = {
     "SIZELABELY":80,
     "URL_SLIDE":URL +"/slideshow",
     "STUDENTS-TOTEM" : URL +"/students/created_from_totem"
-    }
+}

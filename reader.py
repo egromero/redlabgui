@@ -1,13 +1,14 @@
 import RPi.GPIO as GPIO
 import MFRC522
 import requests
-#from soundplayer import SoundPlayer
+from soundplayer import SoundPlayer
 import pygame
 import time
 import credentials
 from const import CONSTANTS
 from PyQt5.QtCore import QThread, pyqtSignal
 import checkInternet
+from airtable_integration import check_entry
 pygame.init()
 class Reader(QThread):
     signal = pyqtSignal(dict)
@@ -38,7 +39,15 @@ class Reader(QThread):
                 p.play()
                 time.sleep(0.001)
                 if checkInternet.check():
-                    req = requests.post(CONSTANTS["RECORDS"], {'rfid' : rfid,'lab_id' : CONSTANTS["ID"]}, headers=credentials.totem_credential).json()
+                    #Revisar si usuario existe en la base de Airtable
+                    #req = requests.post(CONSTANTS["RECORDS"], {'rfid' : rfid,'lab_id' : CONSTANTS["ID"]}, headers=credentials.totem_credential).json()
+                    req = {
+                        'rfid': rfid,
+                        'lab_id': CONSTANTS["ID"],
+                        'totem_cred': credentials.totem_credential,
+                        'action': 'New entry'
+                    }
+                    #Envía la información al HandleResponse en gui.py
                     self.signal.emit(req)
                     time.sleep(1)
                     GPIO.cleanup()
