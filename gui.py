@@ -45,8 +45,8 @@ class MWindow(QMainWindow):
         local.show()
 
     def handle_response(self, data):
-        
-        response = check_record(data)
+        pass
+"""         response = check_record(data)
         if response['action'] == 'Entry':            
             #Usuario no existe en base de datos.
             if response["type"] == "nonexistent":
@@ -82,7 +82,7 @@ class MWindow(QMainWindow):
             record_departure_time(response['data']['Record ID - Último ingreso'][0])
             image = CONSTANTS['DATASET']['GETOUT']
             self.name.setText(data['data']['Nombre completo'].split(' ')[0].upper())
-            self.setScreen(image)
+            self.setScreen(image) """
 
 
     def check_ucdb(self, rfid):
