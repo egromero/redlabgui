@@ -20,7 +20,7 @@ class Reader(QThread):
     
     def run(self):
         continue_reading = True        
-        print("Lector")
+        logging.info("Iniciando Lector...")
         MIFAREReader = MFRC522.MFRC522()
         
         while continue_reading:
@@ -30,7 +30,7 @@ class Reader(QThread):
             (status,uid) = MIFAREReader.MFRC522_Anticoll()
 
             if status == MIFAREReader.MI_OK:
-                print("Leido")
+                logging.info("Tarjeta leída...")
                 rfid = ''.join([str(hex(i))[2:] if i>16 else '0'+ str(hex(i))[2:] for i in uid ])[:-2]
                 rfid = rfid.upper()
                 soundpath = "/home/pi/redlabgui/sounds/"
@@ -49,7 +49,9 @@ class Reader(QThread):
                         'action': 'New entry'
                     }
                     #Send information to HandleResponse in gui.py
+                    logging.info("Enviando señal desde reader...")
                     self.signal.emit(req)
+                    logging.info("Señal enviada desde reader...")
                     time.sleep(1)
                     GPIO.cleanup()
                 else:
