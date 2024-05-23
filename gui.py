@@ -11,18 +11,9 @@ import credentials
 from airtable_integration import check_record, create_new_entry, create_new_student, record_departure_time
 import logging
 
-# Configurar el logging
-log_filepath = "./logs/main.log"
-
-logging.basicConfig(
-    filename=log_filepath,
-    level=logging.DEBUG,  # Ajusta el nivel según tus necesidades (DEBUG, INFO, WARNING, ERROR, CRITICAL)
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
-
 class MWindow(QMainWindow):
     def __init__(self, parent=None):
-        logging.info("Funcionando...")
+        logging.info("Iniciando Mwindow...")
         super(MWindow, self).__init__(parent=parent)
         self.setup_init()
     
@@ -55,7 +46,7 @@ class MWindow(QMainWindow):
         local.show()
 
     def handle_response(self, data):
-        
+        logging.info("Entrando a handle response...")
         response = check_record(data)
         if response['action'] == 'Entry':            
             #Usuario no existe en base de datos.

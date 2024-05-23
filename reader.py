@@ -8,6 +8,7 @@ import credentials
 from const import CONSTANTS
 from PyQt5.QtCore import QThread, pyqtSignal
 import checkInternet
+import logging
 pygame.init()
 class Reader(QThread):
     signal = pyqtSignal(dict)
@@ -15,9 +16,10 @@ class Reader(QThread):
 
     def __init__(self, parent=None):
         QThread.__init__(self, parent)
+        logging.info("Iniciando Reader...")
     
     def run(self):
-        continue_reading = True
+        continue_reading = True        
         print("Lector")
         MIFAREReader = MFRC522.MFRC522()
         
