@@ -55,7 +55,8 @@ class MWindow(QMainWindow):
                 image = CONSTANTS['DATASET']['WAIT'] 
                 self.setScreen(image)
                 #Buscamos usuario en API UC; si existe crea el nuevo usuario y su ingreso.
-                data = self.check_ucdb(data['data']['rfid'])
+                logging.info('Buscando datos desde API UC...')
+                data = self.check_ucdb(data['data']['rfid'])                
                 if data == 200:
                     #Revisar que mostrar a usuario creado desde API UC.
                     image = CONSTANTS['DATASET']['NOTAUTH']
@@ -89,7 +90,10 @@ class MWindow(QMainWindow):
 
     def check_ucdb(self, rfid):
         #Crea al nuevo usuario y su ingreso respectivo.
+        logging.info('Entrando a check_ucdb...')
+        logging.info('Entrando a apiHandler...')
         data = apiHandler.get_data(rfid)
+        logging.info('Saliendo de apiHandler...')
         if isinstance(data, str):
             return None
         #Creacion de usuario inexistente en base de datos
