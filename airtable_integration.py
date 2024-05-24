@@ -22,6 +22,7 @@ def check_record(request):
     lab_id = request['lab_id']
 
     student = get_student_by_rfid(rfid)
+    logging.info('Datos obtenidos de student: {}'.format(student))  
     if student:
         if 'Ingresos' in student:
             #Usuario registrado con ingresos anteriores.

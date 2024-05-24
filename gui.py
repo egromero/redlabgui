@@ -56,7 +56,9 @@ class MWindow(QMainWindow):
                 self.setScreen(image)
                 #Buscamos usuario en API UC; si existe crea el nuevo usuario y su ingreso.
                 logging.info('Buscando datos desde API UC...')
-                data = self.check_ucdb(data['data']['rfid'])                
+                logging.info(data)
+                data = self.check_ucdb(data['data']['rfid'])
+                logging.info('Datos obtenidos desde API UC...')                
                 if data == 200:
                     #Revisar que mostrar a usuario creado desde API UC.
                     image = CONSTANTS['DATASET']['NOTAUTH']
