@@ -1,4 +1,4 @@
-#URL = "http://redlab.dca.uc.cl"
+URL_RedLab = "http://redlab.dca.uc.cl"
 URL = "https://api.airtable.com/v0/appAva5Ns7QQbSSVn"
 CONSTANTS = {
     "ID" : 2,
@@ -17,6 +17,6 @@ CONSTANTS = {
     "YLABEL": 730,
     "SIZELABELX": 970, 
     "SIZELABELY":80,
-    "URL_SLIDE":URL +"/slideshow",
-    "STUDENTS-TOTEM" : URL +"/students/created_from_totem"
+    "URL_SLIDE":URL_RedLab +"/slideshow",
+    "STUDENTS-TOTEM" : URL_RedLab +"/students/created_from_totem"
 }
