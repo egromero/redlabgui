@@ -1,6 +1,7 @@
 #!/usr/bin/env python 
 import requests
 import json
+import logging
 from credentials import *
 
 def rotate(uid):
@@ -10,10 +11,12 @@ def rotate(uid):
         return rotated
 
 def get_data(uid):
+    logging.info("Entrando a get - rfid: {}".format(uid))
     rotated = False
     url_tarjeta_uc = 'https://api.uc.cl/tarjetauc/v1/user/{0}?buscar=mifare'.format(uid)
+    logging.info("Haciendo request a API UC")
     uc_card = requests.get(url_tarjeta_uc, headers = tarjeta_uc_credential).json()
-    print(uc_card)
+    logging.info("UC card recibida: {}".format(uc_card))
     if uc_card['status']==300:
         rotated = True
         print("rotated")
