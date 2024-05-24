@@ -1,6 +1,5 @@
 import sys
-import reader
-import gui
+
 import logging
 
 # Configurar el logging
@@ -13,6 +12,10 @@ logging.basicConfig(
 )
 
 logging.info("Iniciando aplicación...")
+
+import reader
+import gui
+
 app = gui.QApplication(sys.argv)
 mwin = gui.MWindow()
 mwin.show()
