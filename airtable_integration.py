@@ -7,10 +7,13 @@ import logging
 logging.info("Obteniendo API KEY Airtable...")
 # Configura tus credenciales y nombres de la base de datos
 API_KEY = credentials.api_key_airtable['x-api-key']
+logging.info("API KEY Airtable obtenida...")
 
 # URL de la API de Airtable
+logging.info("Estableciendo URLS para requests...")
 AIRTABLE_USERS_URL = CONSTANTS['USERS']
 AIRTABLE_ENTRYS_URL = CONSTANTS['RECORDS']
+logging.info("URLS para requests establecidas...")
 
 def check_record(request):
     logging.info("Entrando a check_record...")
