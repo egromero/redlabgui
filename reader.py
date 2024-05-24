@@ -22,15 +22,17 @@ class Reader(QThread):
         continue_reading = True        
         logging.info("Iniciando Lector...")
         MIFAREReader = MFRC522.MFRC522()
+        logging.info("Lector iniciado...")
         
         while continue_reading:
     
+            logging.info('Dentro de while...')
             (status,TagType) = MIFAREReader.MFRC522_Request(MIFAREReader.PICC_REQIDL)
                 
             (status,uid) = MIFAREReader.MFRC522_Anticoll()
 
             if status == MIFAREReader.MI_OK:
-                logging.info("Tarjeta leída...")
+                logging.info("Tarjeta leida...")
                 rfid = ''.join([str(hex(i))[2:] if i>16 else '0'+ str(hex(i))[2:] for i in uid ])[:-2]
                 rfid = rfid.upper()
                 soundpath = "/home/pi/redlabgui/sounds/"
