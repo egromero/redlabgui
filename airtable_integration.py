@@ -2,7 +2,9 @@ import requests
 import json
 import credentials
 from const import CONSTANTS
+import logging
 
+logging.info("Obteniendo API KEY Airtable...")
 # Configura tus credenciales y nombres de la base de datos
 API_KEY = credentials.api_key_airtable['x-api-key']
 
@@ -11,6 +13,7 @@ AIRTABLE_USERS_URL = CONSTANTS['USERS']
 AIRTABLE_ENTRYS_URL = CONSTANTS['RECORDS']
 
 def check_record(request):
+    logging.info("Entrando a check_record...")
     # Simulando la lógica de recibir la solicitud POST desde el cliente
     rfid = request['rfid']
     lab_id = request['lab_id']
@@ -51,6 +54,7 @@ def check_record(request):
 
 def create_new_student(student_data, totem_cred=None):
 
+    logging.info("Entrando a create new student...")
     # Headers para la autenticación
     headers = {
         'Authorization': f'Bearer {API_KEY}'
@@ -79,6 +83,8 @@ def create_new_student(student_data, totem_cred=None):
 
 def get_student_by_rfid(rfid="123456"):
 
+    logging.info("Entrando a get student by rfid...")
+
     # Headers para la autenticación
     headers = {
         'Authorization': f'Bearer {API_KEY}'
@@ -96,6 +102,8 @@ def get_student_by_rfid(rfid="123456"):
 
 def create_new_entry(student):
     
+    logging.info("Entrando a craete new entry...")
+
     # Headers para la autenticación
     headers = {
         'Authorization': f'Bearer {API_KEY}'
@@ -123,6 +131,7 @@ def create_new_entry(student):
         return {'error': f'Error al crear el registro: {response.status_code} - {response.text}'}
 
 def record_departure_time(record_id):
+    logging.info("Entrando a record departure time...")
     # Datos a actualizar en el registro de Airtable
     AIRTABLE_RECORD_URL = AIRTABLE_ENTRYS_URL + "/"
 
@@ -141,6 +150,7 @@ def record_departure_time(record_id):
     response = requests.patch(AIRTABLE_RECORD_URL + record_id, headers=headers, json=data)
 
 def unchecked_last_entry(record_id):
+    logging.info("Entrando a unchecked last entry...")
     # Datos a actualizar en el registro de Airtable
     AIRTABLE_RECORD_URL = AIRTABLE_ENTRYS_URL + "/"
 
