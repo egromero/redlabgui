@@ -12,12 +12,12 @@ from airtable_integration import check_record, create_new_entry, create_new_stud
 import logging
 
 class MWindow(QMainWindow):
-    def __init__(self, parent=None):
-        logging.info("Iniciando Mwindow...")
+    def __init__(self, parent=None):        
         super(MWindow, self).__init__(parent=parent)
         self.setup_init()
     
     def setup_init(self):
+        logging.info("Iniciando Mwindow...")
         self.dataset = CONSTANTS["DATASET"]
         self.reader = Reader()
         self.reader.signal.connect(self.handle_response)
