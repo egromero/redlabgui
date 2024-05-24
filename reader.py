@@ -26,12 +26,9 @@ class Reader(QThread):
         
         while continue_reading:
     
-            logging.info('Dentro de while...')
             (status,TagType) = MIFAREReader.MFRC522_Request(MIFAREReader.PICC_REQIDL)
                 
             (status,uid) = MIFAREReader.MFRC522_Anticoll()
-            logging.info('Después de anticoll')
-            logging.info('{},{}'.format(status, uid))
 
             if status == MIFAREReader.MI_OK:
                 logging.info("Tarjeta leida...")
