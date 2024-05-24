@@ -31,6 +31,7 @@ class Reader(QThread):
                 
             (status,uid) = MIFAREReader.MFRC522_Anticoll()
             logging.info('Después de anticoll')
+            logging.info('{},{}'.format(status, uid))
 
             if status == MIFAREReader.MI_OK:
                 logging.info("Tarjeta leida...")
