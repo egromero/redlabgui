@@ -32,6 +32,7 @@ class MWindow(QMainWindow):
         self.webBrowser = Browser()
         self.webBrowser.showFullScreen()
         self.webBrowser.load(CONSTANTS["URL_SLIDE"])
+        logging.info("Terminando inicialización de Mwindow...")
 
     def setScreen(self, image):        
         style = "QWidget {background : url(%s) no-repeat center center fixed}" % image

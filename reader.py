@@ -30,6 +30,7 @@ class Reader(QThread):
             (status,TagType) = MIFAREReader.MFRC522_Request(MIFAREReader.PICC_REQIDL)
                 
             (status,uid) = MIFAREReader.MFRC522_Anticoll()
+            logging.info('Después de anticoll')
 
             if status == MIFAREReader.MI_OK:
                 logging.info("Tarjeta leida...")
