@@ -75,7 +75,7 @@ def create_new_student(student_data, totem_cred=None):
             'fldNwrYVKqERuCmF7': student_data['rut'],
             'fldH3TAdkYWmkhfuT': student_data['sit_academica'],
             'fldaz03UGWlIRFYB8': student_data['major'],
-            'fldhejE4G4YNNmd2e': totem_cred
+            'fldhejE4G4YNNmd2e': totem_cred['x-api-key']
         }
     }
     
