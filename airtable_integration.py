@@ -114,7 +114,7 @@ def get_student_by_rfid(rfid="123456"):
             return data['records'][0]['fields']
     return None
 
-def create_new_entry(student):
+def create_new_entry(student, totem_cred=None):
     
     logging.info("Entrando a create new entry: {0}".format(student))
 
@@ -127,6 +127,7 @@ def create_new_entry(student):
     data = {
         'fields': {
             'fldSaKJY5vxtHib40': [student['id']],
+            'fldhejE4G4YNNmd2e': totem_cred['x-api-key']
         }
     }
     

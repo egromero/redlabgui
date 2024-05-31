@@ -79,16 +79,16 @@ class MWindow(QMainWindow):
                     self.setScreen(image)
                     QTest.qWait(1000)
                 image = CONSTANTS['DATASET']['ENROLL']
-                create_new_entry(response['data'])
+                create_new_entry(response['data'], credentials.totem_credential)
                 #self.name.setText(data['data']['student']['nombre'].split(' ')[0].upper()) 
                 self.setScreen(image)                               
 
         elif response['action'] == 'Exit':
             record_departure_time(response['data']['Record ID - Último ingreso'][0])
             image = CONSTANTS['DATASET']['GETOUT']
-            logging.info("Nombre de salida: {0}".format(reponse['data']['Nombre completo'].split(' ')[0].upper()))
-            self.name.setText(reponse['data']['Nombre completo'].split(' ')[0].upper())
-            logging.info("Texto seteado para salida...")
+            l#ogging.info("Nombre de salida: {0}".format(reponse['data']['Nombre completo'].split(' ')[0].upper()))
+            #self.name.setText(reponse['data']['Nombre completo'].split(' ')[0].upper())
+            "logging.info("Texto seteado para salida...")
             self.setScreen(image)
 
 
@@ -106,7 +106,7 @@ class MWindow(QMainWindow):
         student = create_new_student(data, credentials.totem_credential)
         #Creacion de registro de ingreso de usuario  --> Revisar si este paso es necesario.
         # Last code --> record = requests.post(CONSTANTS['RECORDS'], {'rfid': data['rfid'],'lab_id':CONSTANTS['ID']}, headers=credentials.totem_credential).json()
-        record = create_new_entry(student)
+        record = create_new_entry(student, credentials.totem_credential)
         QTest.qWait(1000)
         #self.handle_response(record)
         return 200
