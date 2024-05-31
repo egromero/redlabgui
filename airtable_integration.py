@@ -27,8 +27,11 @@ def check_record(request):
     if student:
         if 'Ingresos' in student:
             #Usuario registrado con ingresos anteriores.
-            if student["Salida de último ingreso"] == "Pendiente":
-                action = 'Exit'
+            if "Salida de último ingreso" in student:
+                if student["Salida de último ingreso"][0] == "Pendiente":
+                    action = 'Exit'
+                else:
+                    action = 'Entry'
             else:
                 action = 'Entry'
 
