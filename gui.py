@@ -86,7 +86,7 @@ class MWindow(QMainWindow):
         elif response['action'] == 'Exit':
             record_departure_time(response['data']['Record ID - Último ingreso'][0])
             image = CONSTANTS['DATASET']['GETOUT']
-            self.name.setText(data['data']['Nombre completo'].split(' ')[0].upper())
+            self.name.setText(data['data']['Nombre completo'])
             self.setScreen(image)
 
 

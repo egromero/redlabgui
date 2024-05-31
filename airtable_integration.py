@@ -160,12 +160,14 @@ def record_departure_time(record_id):
 
     data = {
         'fields': {
-            'fldnsGof1RrMYyRod': {'name': 'Registrada'}
+            'fldnsGof1RrMYyRod': 'Registrada'
         }
     }
     
     # Realizar la solicitud PATCH para actualizar el registro
+    logging.info("Enviando PATCH para registrar salida...")
     response = requests.patch(AIRTABLE_RECORD_URL + record_id, headers=headers, json=data)
+    logging.info("Salida registrada...")
 
 def unchecked_last_entry(record_id):
     logging.info("Entrando a unchecked last entry...")
