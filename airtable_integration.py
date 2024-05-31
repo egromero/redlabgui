@@ -103,6 +103,7 @@ def get_student_by_rfid(rfid="123456"):
     params = {
         'filterByFormula': f'{{ID Persona}} = "{rfid}"'
     }
+    logging.info("Enviando request a Airtable con rfid: {0}".format(rfid))
     response = requests.get(AIRTABLE_USERS_URL, headers=headers, params=params)
     if response.status_code == 200:
         data = response.json()
