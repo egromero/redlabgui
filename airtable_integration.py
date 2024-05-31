@@ -56,7 +56,7 @@ def check_record(request):
     
     return response_data
 
-def create_new_student(student_data, totem_cred=None):
+def create_new_student(student_data, totem_cred=None, API_KEY=API_KEY):
 
     logging.info("Entrando a create new student...")
     logging.info("Student data: {0}".format(student_data))
@@ -90,7 +90,7 @@ def create_new_student(student_data, totem_cred=None):
     else:
         return {'error': f'Error al crear el registro: {response.status_code} - {response.text}'}
 
-def get_student_by_rfid(rfid="123456"):
+def get_student_by_rfid(rfid="123456",API_KEY=API_KEY):
 
     logging.info("Entrando a get student by rfid...")
 
@@ -109,13 +109,14 @@ def get_student_by_rfid(rfid="123456"):
             return data['records'][0]['fields']
     return None
 
-def create_new_entry(student):
+def create_new_entry(student,API_KEY=API_KEY):
     
     logging.info("Entrando a create new entry: {0}".format(student))
 
     # Headers para la autenticación
     headers = {
-        'Authorization': f'Bearer {API_KEY}'
+        'Authorization': f'Bearer {API_KEY}',
+        'Content-Type': 'application/json'
     }
 
     data = {
@@ -142,7 +143,7 @@ def create_new_entry(student):
     else:
         return {'error': f'Error al crear el registro: {response.status_code} - {response.text}'}
 
-def record_departure_time(record_id):
+def record_departure_time(record_id, API_KEY=API_KEY):
     logging.info("Entrando a record departure time...")
     # Datos a actualizar en el registro de Airtable
     AIRTABLE_RECORD_URL = AIRTABLE_ENTRYS_URL + "/"
@@ -161,7 +162,7 @@ def record_departure_time(record_id):
     # Realizar la solicitud PATCH para actualizar el registro
     response = requests.patch(AIRTABLE_RECORD_URL + record_id, headers=headers, json=data)
 
-def unchecked_last_entry(record_id):
+def unchecked_last_entry(record_id, API_KEY=API_KEY):
     logging.info("Entrando a unchecked last entry...")
     # Datos a actualizar en el registro de Airtable
     AIRTABLE_RECORD_URL = AIRTABLE_ENTRYS_URL + "/"
