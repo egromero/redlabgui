@@ -96,6 +96,7 @@ class MWindow(QMainWindow):
         logging.info('Entrando a apiHandler...')
         data = apiHandler.get_data(rfid)
         logging.info('Saliendo de apiHandler...')
+        logging.info("Output ApiHandler: {0}".format(data))
         if isinstance(data, str):
             return None
         #Creacion de usuario inexistente en base de datos

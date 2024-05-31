@@ -59,11 +59,12 @@ def check_record(request):
 def create_new_student(student_data, totem_cred=None):
 
     logging.info("Entrando a create new student...")
+    logging.info("Student data: {0}".format(student_data))
     # Headers para la autenticación
     headers = {
         'Authorization': f'Bearer {API_KEY}'
     }
-
+    
     data = {
         'fields': {
             'fldDHLQB6UXdQRwx9': student_data['rfid'],
@@ -106,7 +107,7 @@ def get_student_by_rfid(rfid="123456"):
 
 def create_new_entry(student):
     
-    logging.info("Entrando a craete new entry...")
+    logging.info("Entrando a create new entry: {0}".format(student))
 
     # Headers para la autenticación
     headers = {
@@ -121,12 +122,15 @@ def create_new_entry(student):
     
     #Desmarcar último registro
     if "Record ID - Último ingreso" in student:
+        logging.info("Chequeando si marcó salida de última ingreso...")
         unchecked_last_entry(student["Record ID - Último ingreso"][0])
     else:
-        print("Usuario no registra ingresos.")
+        logging.info("Usuario no registra ingresos.")
     
+    logging.info("Enviando POST para crear nuevo ingreso...")
     # Realizar la solicitud POST para crear el nuevo registro de ingreso
     response = requests.post(AIRTABLE_ENTRYS_URL, headers=headers, json=data)
+    logging.info("Response Airtable: {0}".format(response))
 
     # Verificar el código de respuesta HTTP y devolver el resultado
     if response.status_code == 200:
