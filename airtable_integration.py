@@ -77,8 +77,11 @@ def create_new_student(student_data, totem_cred=None):
         }
     }
     
+    logging.info("Enviando POST a Airtable para crear estudiante...")
+    logging.info("Airtable Users URL: {0}".format(AIRTABLE_USERS_URL))
     # Realizar la solicitud POST para crear el nuevo registro de persona
     response = requests.post(AIRTABLE_USERS_URL, headers=headers, json=data)
+    logging.info("Response recibida desde Airtable...")
 
     # Verificar el código de respuesta HTTP y devolver el resultado
     if response.status_code == 200:
