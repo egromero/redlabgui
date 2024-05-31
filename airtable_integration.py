@@ -160,7 +160,7 @@ def record_departure_time(record_id):
 
     data = {
         'fields': {
-            'fldnsGof1RrMYyRod': 'Registrada'
+            'fldnsGof1RrMYyRod': {'name': 'Registrada'}
         }
     }
     
