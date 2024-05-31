@@ -79,7 +79,7 @@ def create_new_student(student_data, totem_cred=None, API_KEY=API_KEY):
     }
     
     logging.info("Enviando POST a Airtable para crear estudiante...")
-    logging.info("Airtable Users URL: {0}".format(AIRTABLE_USERS_URL))
+    logging.info("API KEY obtenida: {0}".format(API_KEY))
     # Realizar la solicitud POST para crear el nuevo registro de persona
     response = requests.post(AIRTABLE_USERS_URL, headers=headers, json=data)
     logging.info("Response recibida desde Airtable...")
