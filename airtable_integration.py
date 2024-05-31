@@ -62,7 +62,8 @@ def create_new_student(student_data, totem_cred=None):
     logging.info("Student data: {0}".format(student_data))
     # Headers para la autenticación
     headers = {
-        'Authorization': f'Bearer {API_KEY}'
+        'Authorization': f'Bearer {API_KEY}',
+        'Content-Type': 'application/json'
     }
     
     data = {
@@ -178,4 +179,3 @@ def unchecked_last_entry(record_id):
     
     # Realizar la solicitud PATCH para actualizar el registro
     response = requests.patch(AIRTABLE_RECORD_URL + record_id, headers=headers, json=data)
-
