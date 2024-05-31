@@ -16,16 +16,15 @@ def get_data(uid):
     url_tarjeta_uc = 'https://api.uc.cl/tarjetauc/v1/user/{0}?buscar=mifare'.format(uid)
     logging.info("Haciendo request a API UC: {0}".format(url_tarjeta_uc))
     uc_card = requests.get(url_tarjeta_uc, headers = tarjeta_uc_credential).json()
+    logging.info("UC card recibida: {}".format(data_tarjeta)) 
     if uc_card['status']==300:
         rotated = True
-        print("rotated")
         url_tarjeta_uc = 'https://api.uc.cl/tarjetauc/v1/user/{0}?buscar=mifare'.format(rotate(uid))
         new_uc_card = requests.get(url_tarjeta_uc, headers = tarjeta_uc_credential).json()
         data_tarjeta = new_uc_card['tarjetauc']['data']
-        logging.info("UC card recibida: {}".format(data_tarjeta))     
+        logging.info("UC card rotada: {}".format(data_tarjeta))     
     else:        
         data_tarjeta = uc_card['tarjetauc']['data']
-        logging.info("UC card recibida: {}".format(data_tarjeta))
         
     if isinstance(data_tarjeta, str):
         return data_tarjeta
