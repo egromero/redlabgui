@@ -1,3 +1,4 @@
+import os
 import requests
 import json
 import credentials
@@ -6,7 +7,7 @@ import logging
 
 logging.info("Obteniendo API KEY Airtable...")
 # Configura tus credenciales y nombres de la base de datos
-API_KEY = credentials.api_key_airtable['x-api-key']
+API_KEY = os.getenv('API_KEY')
 logging.info("API KEY Airtable obtenida: {0}".format(API_KEY))
 
 # URL de la API de Airtable
