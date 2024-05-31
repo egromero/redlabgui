@@ -69,7 +69,7 @@ def create_new_student(student_data, totem_cred=None):
         'fields': {
             'fldDHLQB6UXdQRwx9': student_data['rfid'],
             'fldHdCHTha7Xd687o': student_data['nombre'],
-            'fldYhz4PDne4E8AO7': student_data['correo'],
+            'fldQxqlM4ac3JPy4x': student_data['correo'],
             'fldNwrYVKqERuCmF7': student_data['rut'],
             'fldH3TAdkYWmkhfuT': student_data['sit_academica'],
             'fldaz03UGWlIRFYB8': student_data['major'],
@@ -178,3 +178,4 @@ def unchecked_last_entry(record_id):
     
     # Realizar la solicitud PATCH para actualizar el registro
     response = requests.patch(AIRTABLE_RECORD_URL + record_id, headers=headers, json=data)
+
