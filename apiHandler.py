@@ -50,10 +50,3 @@ def get_data(uid):
             'sit_academica': data['rol'][0]['estado'],
             'major': majors[0] }
     
-
-# print(tarjeta_uc_credential)
-# url_tarjeta_uc = 'https://api.uc.cl/tarjetauc/v1/user/A31802C7?buscar=mifare'
-# print(url_tarjeta_uc)
-# print("Haciendo request a API UC")
-# uc_card = requests.get(url_tarjeta_uc, headers = tarjeta_uc_credential).json()
-# print(uc_card)

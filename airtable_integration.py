@@ -116,7 +116,7 @@ def get_student_by_rfid(rfid="123456"):
 
 def create_new_entry(student, totem_cred=None):
     
-    logging.info("Entrando a create new entry: {0}".format(student))
+    logging.info("Entrando a create new entry v- Desde totem: {0}".format(totem_cred))
 
     # Headers para la autenticación
     headers = {
@@ -127,7 +127,7 @@ def create_new_entry(student, totem_cred=None):
     data = {
         'fields': {
             'fldSaKJY5vxtHib40': [student['id']],
-            'fldhejE4G4YNNmd2e': totem_cred['x-api-key']
+            'fld2YjXUf1WfGSwwt': totem_cred['x-api-key']
         }
     }
     
