@@ -78,7 +78,7 @@ class MWindow(QMainWindow):
                     logging.info('Mostrando inducción pendiente...')
                     image = CONSTANTS['DATASET']['NOTAUTH']
                     self.setScreen(image)
-                    QTest.qWait(1000)
+                    #QTest.qWait(1000)
                 logging.info('Mostrando Bienvenida...')
                 image = CONSTANTS['DATASET']['ENROLL']
                 create_new_entry(response['data'], credentials.totem_credential)
