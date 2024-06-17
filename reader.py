@@ -39,9 +39,15 @@ class Reader(QThread):
                 song = "JohnCenaShort.wav" if rfid == "CFCAA9B9" else "alert.wav"
                 #song = "alert.wav"
                 logging.info('Enviando sonido de alerta...')
-                p = pygame.mixer.Sound(soundpath+song)
-                p.play()
-                logging.info('Sonido de alerta ejecutado...')
+
+                try:
+                    p = pygame.mixer.Sound(soundpath + song)
+                    p.play()
+                    logging.info('Sonido de alerta ejecutado...')
+
+                except Exception as e:
+                    logging.error("Error al reproducir el sonido: %s", str(e))
+
                 time.sleep(0.001)                
                 if checkInternet.check():
                     logging.info('Conexión a internet checked...')
