@@ -34,6 +34,7 @@ class Reader(QThread):
                 logging.info("Tarjeta leida...")
                 rfid = ''.join([str(hex(i))[2:] if i>16 else '0'+ str(hex(i))[2:] for i in uid ])[:-2]
                 rfid = rfid.upper()
+                logging.info('rfid: {0}'.format(rfid))
                 soundpath = "/home/pi/redlabgui/sounds/"
                 song = "JohnCenaShort.wav" if rfid == "CFCAA9B9" else "alert.wav"
                 #song = "alert.wav"
