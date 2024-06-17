@@ -83,7 +83,6 @@ def create_new_student(student_data, totem_cred=None):
     }
     
     logging.info("Enviando POST a Airtable para crear estudiante...")
-    logging.info("API KEY obtenida: {0}".format(API_KEY))
     # Realizar la solicitud POST para crear el nuevo registro de persona
     response = requests.post(AIRTABLE_USERS_URL, headers=headers, json=data)
     logging.info("Response recibida desde Airtable...")
@@ -92,6 +91,7 @@ def create_new_student(student_data, totem_cred=None):
     if response.status_code == 200:
         return response.json()
     else:
+        logging.info(f'Error al crear el registro: {response.status_code} - {response.text}')
         return {'error': f'Error al crear el registro: {response.status_code} - {response.text}'}
 
 def get_student_by_rfid(rfid="123456"):
